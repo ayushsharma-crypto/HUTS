@@ -1,0 +1,90 @@
+##########
+### GR ###
+##########
+
+Data Formating
+--------------
+python GR/NetVLAD/DataFormat/break_into_two.py 600 ../original_data/small_2/
+
+python GR/NetVLAD/DataFormat/custom_format.py 3 ../original_data/small_2/reference1/ ../data/small_2/ Reference_resized
+
+python GR/NetVLAD/DataFormat/custom_format.py 4 ../original_data/small_2/query1/ ../data/small_2/ Query_resized
+
+python GR/NetVLAD/DataFormat/custom_mat.py ../data/small_2/ small_2
+
+
+Basic Runs
+----------
+python GR/NetVLAD/NetVLAD/main.py --resume '../data/small_2/NetVLAD' \
+--dataset 'small_2' \
+--root_dir '../data/small_2/' --save --save_path '../data/small_2/NetVLAD'   --nocuda
+
+Restored flags: ['--seed', '123', '--pooling', 'netvlad', '--num_clusters', '16']
+Namespace(arch='vgg16', cacheBatchSize=24, ckpt='best', dataset='small_2', nGPU=1, nocuda=True, num_clusters=16, pooling='netvlad', resume='../data/small_2/NetVLAD', root_dir='../data/small_2/', save=True, save_path='../data/small_2/NetVLAD', seed=123, threads=2, vladv2=False)
+===> Loading dataset(s)
+===> Evaluating
+====> Query count: 160
+===> Building model
+=> loading checkpoint '../data/small_2/NetVLAD/checkpoints/model_best.pth.tar'
+=> loaded checkpoint '../data/small_2/NetVLAD/checkpoints/model_best.pth.tar' (epoch 6)
+===> Running evaluation step
+====> Extracting Features
+====> Building faiss index
+====> Calculating recall @ N
+====> Recall@1: 0.4000
+====> Recall@5: 0.5312
+====> Recall@10: 0.5938
+====> Recall@20: 0.7063
+
+
+python GR/NetVLAD/generate_path_lists.py --root_dir '../data/small_2/' --dataset 'small_2' --netvlad_predictions '../data/small_2/NetVLAD/netvlad_preds.npy' --netvlad_distances '../data/small_2/NetVLAD/netvlad_dist.npy' --save_path '../data/small_2/NetVLAD'
+
+
+python GR/NetVLAD/generate_imgpairs.py ../data/small_2/NetVLAD/small_2_netvlad_candidate_list.txt  ../data/small_2/NetVLAD/img_pairs/ ../data/small_2/Query_resized/ ../data/small_2/Reference_resized/
+
+Evaluations
+-----------
+
+python GR/NetVLAD/plot.py --root_dir '../data/small_2/' --dataset 'small_2' --netvlad_predictions '../data/small_2/NetVLAD/netvlad_preds.npy'  --plot_names small_2
+
+
+
+
+############
+### RORD ###
+############
+
+Basic Runs
+----------
+cd LFM/RoRD
+
+python getRealOneGazebo.py --rgb ../../../original_data/small_2/color/1.jpg --depth ../../../original_data/small_2/depth/1.png --camera config/camera_habitat_original.txt 
+
+python gen_loop_pair.py ../../../data/small_2/NetVLAD/small_2_netvlad_candidate_list.txt  ../../../data/small_2/RoRD/loop_pair.txt  ./reg_cmd_small_2.sh 5
+
+python view_best_match.py ../../../data/small_2/RoRD/rord_matches_count.txt ../../../data/small_2/RoRD/perspective/ ../../../data/small_2/RoRD/best_retrieved_for_query/  ../../../data/small_2/RoRD/query_wise
+
+
+Evaluations
+-----------
+
+cd ../../GR/NetVLAD/
+python lfm_error_RoRD.py --root_dir '../../../data/small_2/' --dataset 'small_2' --netvlad_predictions '../../../data/small_2/NetVLAD/netvlad_preds.npy' --reference_poses '../../../data/small_2/Reference_Poses.csv' --query_poses '../../../data/small_2/Query_Poses.csv'  --name small_2 --rord_trans ../../../data/small_2/RoRD/transition/ --rord_match_count ../../../data/small_2/RoRD/rord_matches_count.txt 
+
+
+
+
+
+
+
+
+
+
+##########
+### BO ###
+##########
+
+Basic Runs
+----------
+
+python genG2o_fromcsv.py ../../data/small_2/Reference_Poses.csv ../../data/small_2/Query_Poses.csv ../../data/small_2/RoRD/rord_matches_count.txt  ../../data/small_2/RoRD/transition/
