@@ -11,7 +11,7 @@ import networkx as nx
 import argparse
 
 def perform_kmeans(data, k):
-	model = KMeans(n_clusters=k, init="k-means++",  random_state=42) # random_state=42 does something, I'm not able to understand
+	model = KMeans(n_clusters=k, init="k-means++",  random_state=42) 
 	return model.fit(data)
 
 def kmean_score_list(data, k_list=range(2,120)):
