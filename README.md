@@ -1,6 +1,6 @@
 # HUTS
 
-This repository comprises of the code base used in the following HUTS [ Hierarchical Unsupervised Topological SLAM ] [paper](https://arxiv.org/abs/2310.04802). 
+This repository comprises of the code base used in the HUTS [ Hierarchical Unsupervised Topological SLAM ] [paper](https://arxiv.org/abs/2310.04802). 
 
 - Habitat dataset generation script `src/save_habitat.py` can be found on this link: [Link](https://github.com/dasupradyumna/Global-Descriptor). However, for that you need to install Habitat too, that is also explained on `Readme.md` of repo itself. One can use the following link to download Matterport3D files [MatterPort3D](https://iiitaphyd-my.sharepoint.com/:u:/g/personal/ayush_sharma_students_iiit_ac_in/EbYF5L1xyctJp7rDvWTsg8QBZAk0ZoqQyHQBttWTRdomvQ?e=5UGrms)
 
@@ -15,10 +15,12 @@ This repository comprises of the code base used in the following HUTS [ Hierarch
 
 
 **NOTE 1**
-For sequence descriptor extractor, we have utilised following repository [link](https://github.com/vandal-vpr/vg-transformers). Follow section `2B and 4A` from the [paper](https://arxiv.org/abs/2310.04802) to know how to utilise seqVLAD model for this use case.
+
+- For sequence descriptor extractor, we have utilised following repository [link](https://github.com/vandal-vpr/vg-transformers). Follow section `2B and 4A` from the [paper](https://arxiv.org/abs/2310.04802) to know how to utilise seqVLAD model for this use case.
 
 **NOTE 2**
-We recommend `conda` environment with `python3.8` on `linux OS`. Use `requirements.txt` for getting required dependencies to run this codebase. You'll have to separately install `G2O cli from source`. 
+
+- We recommend `conda` environment with `python3.8` on `linux OS`. Use `requirements.txt` for getting required dependencies to run this codebase. You'll have to separately install `G2O cli from source`. 
 
 
 ### Dataset
@@ -59,7 +61,7 @@ original_data
 
 
 
-#### Dataformatting
+#### Data formatting
 
 - Break the data into two seqeuence first part will be considered as reference set and later part as query set. For example breakpoint = 50 for 100 images/poses. Depends on user!
 
@@ -148,7 +150,7 @@ example: python generate_predictions.py 'output/DIR_dbFeat.npy' 'output/DIR_qFea
 
 ## HUTS loop pair detection scripts
 
-The folder containe notebooks for performing PCA and clustering on extracted global descriptor from NetVLAD or DIR and utilising seqVLAD extract descriptor of the sequence form due to clustering for hierarchical loop detection. One can access the data used in notebook over here: [link](https://iiitaphyd-my.sharepoint.com/:f:/g/personal/ayush_sharma_students_iiit_ac_in/Eio9us4OsFlMoqbjrP32aMABA48zXhF1fILzwCKxlfYXNg?e=5SRqDB)
+The `SCRIPTS` folder contains notebooks for performing PCA and clustering on extracted global descriptor from NetVLAD or DIR and utilising seqVLAD extract descriptor of the sequence form due to clustering for hierarchical loop detection. One can access the data used in notebook over here: [link](https://iiitaphyd-my.sharepoint.com/:f:/g/personal/ayush_sharma_students_iiit_ac_in/Eio9us4OsFlMoqbjrP32aMABA48zXhF1fILzwCKxlfYXNg?e=5SRqDB)
 
 ## Local Feature Matching
 
