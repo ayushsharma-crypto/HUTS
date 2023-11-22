@@ -127,7 +127,7 @@ python GR/NetVLAD/generate_imgpairs.py ../data/NetVLAD/SMALL_netvlad_candidate_l
 
 ### DIR(GEM)
 
-We have utilised official deep image retrieval repository [link](https://github.com/naver/deep-image-retrieval). One can extract global escriptor using following command:
+We have utilised official deep image retrieval repository [link](https://github.com/naver/deep-image-retrieval). Download one of the model from official DIR repo like `Resnet-101-AP-GeM.pt`.One can extract global escriptor using following command:
 
 ```python
 
@@ -148,6 +148,7 @@ example: python generate_predictions.py 'output/DIR_dbFeat.npy' 'output/DIR_qFea
 
 ## HUTS loop pair detection scripts
 
+The folder containe notebooks for performing PCA and clustering on extracted global descriptor from NetVLAD or DIR and utilising seqVLAD extract descriptor of the sequence form due to clustering for hierarchical loop detection. One can access the data used in notebook over here: [link](https://iiitaphyd-my.sharepoint.com/:f:/g/personal/ayush_sharma_students_iiit_ac_in/Eio9us4OsFlMoqbjrP32aMABA48zXhF1fILzwCKxlfYXNg?e=5SRqDB)
 
 ## Local Feature Matching
 
@@ -184,14 +185,6 @@ example: python getRealOneGazebo.py --rgb ../../../original_data/color/1.jpg --d
 - Following command makes a folder and saves the matches for RoRD keypoints
 
     `python view_best_match.py ../../../data/RoRD/rord_matches_count.txt ../../../data/RoRD/perspective/ ../../../data/RoRD/best_retrieved_for_query/  ../../../data/RoRD/query_wise`
-
-
-#### LFM Evaluation
-
-1. `cd ../`
-
-2. `python GR/NetVLAD/plot.py --root_dir '../data/' --dataset 'SMALL' --netvlad_predictions '../data/NetVLAD/netvlad_preds.npy'  --plot_names SMALL`
-
 
 
 
