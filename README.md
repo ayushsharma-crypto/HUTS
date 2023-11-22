@@ -152,6 +152,10 @@ example: python generate_predictions.py 'output/DIR_dbFeat.npy' 'output/DIR_qFea
 
 The `SCRIPTS` folder contains notebooks for performing PCA and clustering on extracted global descriptor from NetVLAD or DIR and utilising seqVLAD extract descriptor of the sequence form due to clustering for hierarchical loop detection. One can access the data used in notebook over here: [link](https://iiitaphyd-my.sharepoint.com/:f:/g/personal/ayush_sharma_students_iiit_ac_in/Eio9us4OsFlMoqbjrP32aMABA48zXhF1fILzwCKxlfYXNg?e=5SRqDB)
 
+- File `build_seq_graph.ipynb` computes `sequence graph` as described in the HUTS paper.
+- File `compute_loop_pairs.py` computes loop pairs on given data run of habitat environment by forming sequences and performing hierarchical loop detection as described in the paper.
+- File `loop_detection.ipynb` combines logic in both files `build_seq_graph.ipynb` and ``compute_loop_pairs.py` then shows result on given dataset.
+
 ## Local Feature Matching
 
 ### RoRD
